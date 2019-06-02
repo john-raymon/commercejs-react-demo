@@ -1,0 +1,8 @@
+/* Tachyons lib atomic styles */
+* {
+  font-family: helvetica, arial;
+}
+ol, ul {
+  list-style: none;
+}
+@import '~tachyons';
