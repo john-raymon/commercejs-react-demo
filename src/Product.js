@@ -29,7 +29,7 @@ function Product({
         ${ price.formatted_with_code }
         </span>
       </p>
-      <button className="b1 b--mid-gray outline-0 pointer pa2" disabled={soldOut} onClick={() => addProductToCart(id)}>
+      <button className="dim b1 b--mid-gray outline-0 pointer pa2" disabled={soldOut} onClick={() => addProductToCart(id)}>
         { soldOut ? 'Sold Out' : 'Add to Cart'}
       </button>
 
