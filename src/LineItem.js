@@ -8,7 +8,7 @@ function LineItem({ id, name, quantity, removeProductFromCart }) {
           {name} - ({quantity})
         </p>
       </div>
-      <button className="b1 b--mid-gray outline-0 pointer pa2" onClick={() => removeProductFromCart(id)}>
+      <button className="dim b1 b--mid-gray outline-0 pointer pa2" onClick={() => removeProductFromCart(id)}>
         Remove from Cart
       </button>
     </div>
