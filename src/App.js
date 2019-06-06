@@ -11,8 +11,7 @@ class App extends Component {
     this.removeProductFromCart = this.removeProductFromCart.bind(this)
     this.state = {
       products: [],
-      cart: null,
-      productsError: null
+      cart: null
     }
   }
   componentDidMount() {
@@ -25,20 +24,16 @@ class App extends Component {
         (resp) => {
           //Success
           this.setState({
-            productsError: null,
             products: resp.data
           })
         },
         (error) => {
-          //Error handler
-          this.setState({
-            productsError: error.message || `We apologize, we're experiencing technical difficulties`
-          })
+          // handle error properly in real-world
         }
       );
+
       window.addEventListener("Commercejs.Cart.Ready", function (e) {
         // invoke commerce cart method to retrieve cart in session
-        // debugger;
         commerce.Cart.retrieve((cart) => {
             return this.setState({
               cart: cart
