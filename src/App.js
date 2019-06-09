@@ -3,15 +3,18 @@ import React, { Component } from 'react';
 // components
 import Product from './Product'
 import Cart from './Cart'
+import Checkout from './Checkout'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.addProductToCart = this.addProductToCart.bind(this)
     this.removeProductFromCart = this.removeProductFromCart.bind(this)
+    this.createCheckout = this.createCheckout.bind(this)
     this.state = {
       products: [],
-      cart: null
+      cart: null,
+      checkout: null
     }
   }
   componentDidMount() {
@@ -67,10 +70,16 @@ class App extends Component {
       }
     });
   }
+  createCheckout() {
+    this.setState({
+      checkout: true
+    })
+  }
   render() {
     const {
       products,
-      cart
+      cart,
+      checkout
     } = this.state;
     const allProducts = products.map((product, key) => {
       if (product.active) {  // the item is active and isn't sold out so display it
@@ -81,8 +90,17 @@ class App extends Component {
     })
     return (
       <div className="App ph2 pv4">
+        {
+          checkout &&
+          (
+            <div>
+              Checkout
+            </div>
+          )
+        }
         <Cart
           cart={cart}
+          createCheckout={this.createCheckout}
           removeProductFromCart={this.removeProductFromCart}
         />
         <div className="products-container mw7 center cf">
