@@ -3,7 +3,7 @@ import React from 'react';
 // components
 import LineItem from './LineItem';
 
-function Cart({ cart, removeProductFromCart }) {
+function Cart({ cart, removeProductFromCart, createCheckout}) {
   if (cart) {
     const {
       total_items: totalItems,
@@ -37,6 +37,10 @@ function Cart({ cart, removeProductFromCart }) {
         (
           <p className="f7 tracked">Your cart is empty</p>
         )}
+
+        <button className={`dim b1 ${totalItems === 0 ? 'b--light-gray' : 'b--mid-gray' } outline-0 pointer pa2 mt2 db w-100`} disabled={(totalItems === 0)} onClick={createCheckout}>
+          Checkout
+        </button>
     </div>
     )
   } else {
