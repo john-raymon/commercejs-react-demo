@@ -105,7 +105,7 @@ class App extends Component {
         {
           checkout &&
           (
-            <Checkout />
+            <Checkout checkout={checkout} captureOrder={this.captureOrder}/>
           )
         }
         <Cart
