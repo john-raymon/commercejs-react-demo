@@ -38,10 +38,12 @@ class App extends Component {
       window.addEventListener("Commercejs.Cart.Ready", function (e) {
         // invoke commerce cart method to retrieve cart in session
         commerce.Cart.retrieve((cart) => {
+          if (!cart.error) {
             return this.setState({
               cart: cart
             })
-          });
+          }
+        });
       }.bind(this))
 
     }
