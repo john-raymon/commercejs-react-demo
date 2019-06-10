@@ -70,10 +70,20 @@ class App extends Component {
       }
     });
   }
+  // checkout methods
   createCheckout() {
-    this.setState({
-      checkout: true
-    })
+    if (this.state.cart.total_items > 0) {
+      this.props.commerce.Checkout
+        .generateToken(this.state.cart.id, { type: 'cart' },
+          (checkout) => {
+            this.setState({
+              checkout: checkout
+            })
+          },
+          function(error) {
+            console.log('Error:', error)
+          })
+    }
   }
   render() {
     const {
@@ -93,9 +103,7 @@ class App extends Component {
         {
           checkout &&
           (
-            <div>
-              Checkout
-            </div>
+            <Checkout />
           )
         }
         <Cart
