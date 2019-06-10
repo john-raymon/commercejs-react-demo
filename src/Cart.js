@@ -8,7 +8,7 @@ function Cart({ cart, removeProductFromCart, createCheckout}) {
     const {
       total_items: totalItems,
       subtotal,
-      line_items: lineItems
+      line_items: lineItems = []
     } = cart;
 
     const allLineItems = lineItems.map((item, key) => {
