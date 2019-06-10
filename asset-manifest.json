@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/commercejs-react-demo/static/css/main.195b6288.chunk.css",
+    "main.js": "/commercejs-react-demo/static/js/main.2cc95867.chunk.js",
+    "main.js.map": "/commercejs-react-demo/static/js/main.2cc95867.chunk.js.map",
+    "runtime~main.js": "/commercejs-react-demo/static/js/runtime~main.147a5891.js",
+    "runtime~main.js.map": "/commercejs-react-demo/static/js/runtime~main.147a5891.js.map",
+    "static/css/2.64221491.chunk.css": "/commercejs-react-demo/static/css/2.64221491.chunk.css",
+    "static/js/2.5dbd8ed4.chunk.js": "/commercejs-react-demo/static/js/2.5dbd8ed4.chunk.js",
+    "static/js/2.5dbd8ed4.chunk.js.map": "/commercejs-react-demo/static/js/2.5dbd8ed4.chunk.js.map",
+    "index.html": "/commercejs-react-demo/index.html",
+    "precache-manifest.39b25a812c266d5ddd1b642558023240.js": "/commercejs-react-demo/precache-manifest.39b25a812c266d5ddd1b642558023240.js",
+    "service-worker.js": "/commercejs-react-demo/service-worker.js",
+    "static/css/2.64221491.chunk.css.map": "/commercejs-react-demo/static/css/2.64221491.chunk.css.map",
+    "static/css/main.195b6288.chunk.css.map": "/commercejs-react-demo/static/css/main.195b6288.chunk.css.map"
+  }
+}
