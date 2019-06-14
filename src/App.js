@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 // components
 import Product from './Product'
@@ -149,22 +149,25 @@ class App extends Component {
         {
           !checkout &&
           (
-            <Cart
-              cart={cart}
-              createCheckout={this.createCheckout}
-              removeProductFromCart={this.removeProductFromCart}
-            />
+            <Fragment>
+              <Cart
+                cart={cart}
+                createCheckout={this.createCheckout}
+                removeProductFromCart={this.removeProductFromCart}
+              />
+
+              <div className="products-container mw7 center cf">
+                <h2 className="tracked ttu gray">
+                  All Products
+                </h2>
+                { allProducts.length ?
+                  allProducts :
+                  'There no products available right now'
+                }
+              </div>
+            </Fragment>
           )
         }
-        <div className="products-container mw7 center cf">
-          <h2 className="tracked ttu gray">
-            All Products
-          </h2>
-          { allProducts.length ?
-            allProducts :
-            'There no products available right now'
-          }
-        </div>
       </div>
     );
   }
