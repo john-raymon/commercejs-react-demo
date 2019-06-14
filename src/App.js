@@ -11,10 +11,14 @@ class App extends Component {
     this.addProductToCart = this.addProductToCart.bind(this)
     this.removeProductFromCart = this.removeProductFromCart.bind(this)
     this.createCheckout = this.createCheckout.bind(this)
+    this.cancelCheckout = this.cancelCheckout.bind(this)
+    this.captureOrder = this.captureOrder.bind(this)
+    this.refreshCart = this.refreshCart.bind(this)
     this.state = {
       products: [],
       cart: null,
-      checkout: null
+      checkout: null,
+      order: null,
     }
   }
   componentDidMount() {
@@ -72,6 +76,11 @@ class App extends Component {
       }
     });
   }
+  refreshCart(){
+    this.props.commerce.Cart.refresh((resp) => {
+      // successful
+    }, error => console.log(error))
+  }
   // checkout methods
   createCheckout() {
     if (this.state.cart.total_items > 0) {
@@ -87,11 +96,28 @@ class App extends Component {
           })
     }
   }
+  cancelCheckout() {
+    this.setState({
+      checkout: null
+    })
+  }
+  captureOrder(checkoutId, order) {
+    // upon successful capturing of order, refresh cart, and clear checkout state, then set order state
+    this.props.commerce.Checkout
+      .capture(checkoutId, order, (resp) => {
+        this.refreshCart()
+        this.setState({
+          checkout: null,
+          order: resp
+        })
+      }, (error) => console.log(error))
+  }
   render() {
     const {
       products,
       cart,
-      checkout
+      checkout,
+      order
     } = this.state;
     const allProducts = products.map((product, key) => {
       if (product.active) {  // the item is active and isn't sold out so display it
@@ -103,16 +129,33 @@ class App extends Component {
     return (
       <div className="App ph2 pv4">
         {
+          order &&
+          (<div className="mw7 center">
+            <h2 className="tracked ttu green">
+              Thank you for shopping!
+            </h2>
+            <h4 className="tracked ttu gray flex justify-between">
+             Your order number is #{this.state.order.id}
+            </h4>
+          </div>)
+        }
+        {
           checkout &&
           (
-            <Checkout checkout={checkout} captureOrder={this.captureOrder}/>
+            <Checkout checkout={checkout} commerce={this.props.commerce} captureOrder={this.captureOrder} cancelCheckout={this.cancelCheckout}/>
           )
         }
-        <Cart
-          cart={cart}
-          createCheckout={this.createCheckout}
-          removeProductFromCart={this.removeProductFromCart}
-        />
+
+        {
+          !checkout &&
+          (
+            <Cart
+              cart={cart}
+              createCheckout={this.createCheckout}
+              removeProductFromCart={this.removeProductFromCart}
+            />
+          )
+        }
         <div className="products-container mw7 center cf">
           <h2 className="tracked ttu gray">
             All Products
