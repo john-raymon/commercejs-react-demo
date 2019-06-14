@@ -149,7 +149,7 @@ class Checkout extends Component {
     const {
       live : {
         line_items: lineItems,
-        shipping
+        shipping,
         total_due: totalDue
       }
     } = checkout
