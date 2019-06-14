@@ -141,7 +141,12 @@ class Checkout extends Component {
     } = this.state
 
     const {
-      live : { line_items: lineItems }
+      live : {
+        line_items: lineItems,
+        shipping,
+        tax,
+        total_due: totalDue
+      }
     } = checkout
 
     const allLineItems = lineItems.map((item, key) => {
@@ -175,6 +180,11 @@ class Checkout extends Component {
         </option>
       )
     })
+
+    const selectedShippingPrice = shippingOption ? shippingOptions.reduce((obj, option) => {
+     obj[option.id] = option.price
+     return obj
+    }, {})[shippingOption].formatted_with_code : '----'
 
     return (
       <div className="checkout-container mw7 center pb4">
@@ -258,11 +268,19 @@ class Checkout extends Component {
 
           <input className="db mb1" type="text" name="billingPostalZipcode" value={billingPostalZipcode} placeholder="Billing Postal/Zip Code" />
 
+          <p>
+           Shipping: {selectedShippingPrice}
+          </p>
+          <p>
+           Tax: {tax.amount.formatted_with_code}
+          </p>
+          <p>
+           Total: {totalDue.formatted_with_code}
+          </p>
           <button disabled={(!shippingOptions.length)} className={`dim b1 ${!shippingOptions.length ? 'b--light-gray' : 'b--mid-gray'} outline-0 pointer pa2 mt2 db w-100 ttc`}>
             complete order
           </button>
         </form>
-
         <span className="db tracked ttu tc mv2">or</span>
         <button className='dim b1  b--mid-gray outline-0 pointer pa2 mt2 db w-100 ttc' onClick={cancelCheckout}>
           continue shopping
