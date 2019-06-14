@@ -39,7 +39,7 @@ class Checkout extends Component {
     this.getShippingOptions(this.props.checkout.id,'US')
   }
   getAllCountries() {
-    this.props.commerce.Services.localeListCountries((resp) => {
+    this.props.commerce.Services.localeListShippingCountries(this.props.checkout.id,(resp) => {
       this.setState({
         countries: resp.countries
       })
@@ -149,8 +149,7 @@ class Checkout extends Component {
     const {
       live : {
         line_items: lineItems,
-        shipping,
-        tax,
+        shipping
         total_due: totalDue
       }
     } = checkout
@@ -277,9 +276,7 @@ class Checkout extends Component {
           <p>
            Shipping: {selectedShippingPrice}
           </p>
-          <p>
-           Tax: {tax.amount.formatted_with_code}
-          </p>
+
           <button disabled={(!shippingOptions.length)} className={`dim b1 ${!shippingOptions.length ? 'b--light-gray' : 'b--mid-gray'} outline-0 pointer pa2 mt2 db w-100 ttc`}>
             complete order
           </button>
