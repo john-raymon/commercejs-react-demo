@@ -23,6 +23,7 @@ class Checkout extends Component {
       postalZipcode: '',
       shippingOption: '',
       shippingOptions: [],
+      shippingOptionsById: {},
       cardNumber: '4242 4242 4242 4242',
       expMonth: '01',
       expYear: '2021',
@@ -55,7 +56,11 @@ class Checkout extends Component {
     this.props.commerce.Checkout.getShippingOptions(checkoutId, { country }, (resp) => {
       if (!resp.error) {
         this.setState({
-          shippingOptions: resp
+          shippingOptions: resp,
+          shippingOptionsById: resp.reduce((obj, option) => {
+           obj[option.id] = option
+           return obj
+          }, {})
         })
       } else {
         this.setState({
@@ -133,6 +138,7 @@ class Checkout extends Component {
       postalZipcode,
       shippingOption,
       shippingOptions,
+      shippingOptionsById,
       cardNumber,
       expMonth,
       expYear,
@@ -181,10 +187,7 @@ class Checkout extends Component {
       )
     })
 
-    const selectedShippingPrice = shippingOption ? shippingOptions.reduce((obj, option) => {
-     obj[option.id] = option.price
-     return obj
-    }, {})[shippingOption].formatted_with_code : '----'
+    const selectedShippingPrice = ( shippingOptionsById[shippingOption] && shippingOptionsById[shippingOption].price.formatted_with_code ) || '----'
 
     return (
       <div className="checkout-container mw7 center pb4">
@@ -269,13 +272,13 @@ class Checkout extends Component {
           <input className="db mb1" type="text" name="billingPostalZipcode" value={billingPostalZipcode} placeholder="Billing Postal/Zip Code" />
 
           <p>
+           Subtotal: {totalDue.formatted_with_code}
+          </p>
+          <p>
            Shipping: {selectedShippingPrice}
           </p>
           <p>
            Tax: {tax.amount.formatted_with_code}
-          </p>
-          <p>
-           Total: {totalDue.formatted_with_code}
           </p>
           <button disabled={(!shippingOptions.length)} className={`dim b1 ${!shippingOptions.length ? 'b--light-gray' : 'b--mid-gray'} outline-0 pointer pa2 mt2 db w-100 ttc`}>
             complete order
