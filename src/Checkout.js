@@ -43,14 +43,18 @@ class Checkout extends Component {
       this.setState({
         countries: resp.countries
       })
-    })
+    },
+    error => console.log(error)
+    )
   }
   getRegions(countryCode) {
     this.props.commerce.Services.localeListSubdivisions(countryCode, (resp) => {
       this.setState({
         subdivisions: resp.subdivisions
       })
-    })
+    },
+    error => console.log(error)
+    )
   }
   getShippingOptions(checkoutId, country) {
     this.props.commerce.Checkout.getShippingOptions(checkoutId, { country }, (resp) => {
