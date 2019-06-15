@@ -64,7 +64,8 @@ class Checkout extends Component {
         })
       } else {
         this.setState({
-          shippingOptions: []
+          shippingOptions: [],
+          shippingOptionsById: {}
         })
       }
     })
